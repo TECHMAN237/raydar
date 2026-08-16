@@ -1,0 +1,6 @@
+{
+  "name": "RAYDAR Smart Child Safety Ecosystem",
+  "description": "RAYDAR is a connected child-safety ecosystem helping families, communities, and organizations respond faster when it matters most.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
