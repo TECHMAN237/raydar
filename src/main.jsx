@@ -17,7 +17,7 @@ const IMAGE_ASSETS = {
   fieldImage:       '/assets/field-activity.jpg',             // Section 06 — school children outdoors
   eventImages: [
     '/assets/images/project-event-1.png',
-    '/assets/images/project-event-2.png',
+    '/assets/images/project-event-2.jpg',
   ],
 };
 
