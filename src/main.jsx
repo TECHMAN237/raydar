@@ -478,11 +478,10 @@ function Landing() {
                   <span className="eventTag">Milestone 01</span>
                 </div>
                 <div className="eventInfo">
-                  <span className="eventMeta">Event Date • Location Placeholder</span>
+                  <span className="eventMeta">17, August 2026 • PLAYCE YAOUNDE</span>
                   <h3>Presentation &amp; Pitch Event</h3>
                   <p>
-                    A dedicated space to describe your pitch presentation, hackathon participation,
-                    or milestone event. Edit this text to detail your project journey.
+                    Presented at the AFRICAN SCIENCE WEEK organised by AIMS (African Institute for Mathematical Sciences), this project explores an innovative technology-driven solution to address child disappearances, combining smart safety mechanisms with rapid response and identification to help protect children and support families.
                   </p>
                 </div>
               </article>
@@ -494,11 +493,11 @@ function Landing() {
                   <span className="eventTag">Milestone 02</span>
                 </div>
                 <div className="eventInfo">
-                  <span className="eventMeta">Event Date • Organizer Placeholder</span>
+                  <span className="eventMeta">24, june2026 • FAYA HOTEL, DOUALAr</span>
                   <h3>Award &amp; Competition Recognition</h3>
                   <p>
-                    A dedicated space to describe the recognition, award, or certification received
-                    during this milestone. Edit this text to add context.
+                    Presented  at Carrefour Market Cameroon, this project highlighted an innovative solution designed to address real-world challenges through technology and creativity. The initiative was recognized with a special prize awarded
+                     by PLAYCE CAMEROON, celebrating the project's potential and innovative approach.
                   </p>
                 </div>
               </article>
