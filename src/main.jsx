@@ -6,6 +6,7 @@ import {
   Award, UserRound, Clock, ArrowLeft, Smartphone, Cpu
 } from 'lucide-react';
 import './styles.css';
+import { submitToWaitlist } from './supabase.js';
 
 // ─── Centralized Image Configuration ───────────────────────────────────────
 // Replace paths here to update images site-wide without touching components
@@ -15,6 +16,7 @@ const IMAGE_ASSETS = {
   wearableImage:    '/assets/images/raydar-wearable.png',     // V2 — digital safety watch
   waitingListImage: '/assets/images/hero-child-safety.png',   // Waiting list — family/hope visual
   fieldImage:       '/assets/field-activity.jpg',             // Section 06 — school children outdoors
+  leadImage:        '',                                       // Steeve Zali photo (e.g. '/assets/images/steeve-zali.jpg')
   eventImages: [
     '/assets/images/project-event-1.png',
     '/assets/images/project-event-2.jpg',
@@ -27,33 +29,33 @@ const TEAM_MEMBERS = {
   lead: {
     role:   'PROJECT MANAGER & VISIONARY',
     name:   'STEEVE ZALI',
+    image:  '/assets/STEEVE ZALI.jpeg',
     bio:    'Driving the core vision, architecture, and community-safety ecosystem development behind RAYDAR to ensure every child is protected.',
   },
   core: [
     {
-      role: 'HARDWARE & EMBEDDED SYSTEMS',
-      name: 'Engineering Lead',
-      bio:  'Specializing in low-power wearable hardware, secure sensor arrays, and offline-resilient communication.',
+      role:  'ENGINEERING LEAD',
+      name:  'YONTA BERIOT',
+      image: '/assets/YONTA BERIOT.jpeg',
+      bio:   'Specializing in low-power wearable hardware, secure sensor arrays, and offline-resilient communication.',
     },
     {
-      role: 'PRODUCT & UX DESIGN',
-      name: 'Design Lead',
-      bio:  'Creating intuitive, high-stress response interfaces for families, schools, and community protection networks.',
+      role:  'PARTNERSHIPS LEAD',
+      name:  'STEVE FRANCK',
+      image: ['/assets/STEVE FRANCK.jpeg', '/assets/STEVE FRANCK.jpg', '/assets/STEVE FRANCK.png'],
+      bio:   'Building critical bridges with African schools, local authorities, and community child-protection networks.',
     },
     {
-      role: 'COMMUNITY & PARTNERSHIPS',
-      name: 'Partnerships Lead',
-      bio:  'Building critical bridges with African schools, local authorities, and community child-protection networks.',
+      role:  'BACKEND LEAD',
+      name:  'TANTO EINSTEIN',
+      image: '/assets/TANTO EINSTEIN.png',
+      bio:   'Developing secure offline-first data pipelines and robust emergency alert dispatch systems.',
     },
     {
-      role: 'AI & BACKEND ARCHITECTURE',
-      name: 'Backend Lead',
-      bio:  'Developing secure offline-first data pipelines and robust emergency alert dispatch systems.',
-    },
-    {
-      role: 'SECURITY & COMPLIANCE',
-      name: 'Security Lead',
-      bio:  'Ensuring end-to-end data privacy, strict access control, and trusted verification workflows.',
+      role:  'PRESENTATION & COMMUNICATION',
+      name:  'SINEFO JOY',
+      image: ['/assets/SINEFO JOY.jpeg', '/assets/SINEFO JOY.jpg', '/assets/SINEFO JOY.png'],
+      bio:   'Managing presentations, public relations, and clear communication channels for community outreach and stakeholder engagement.',
     },
   ],
 };
@@ -144,6 +146,38 @@ function Pic({ src, alt, cls = '' }) {
         RAYDAR visual<br />
         <small>Replace with your own image</small>
       </div>
+    </div>
+  );
+}
+
+// ─── Team Avatar Component ────────────────────────────────────────────────
+function TeamAvatar({ src, name, isLead = false }) {
+  const candidates = Array.isArray(src) ? src : [src].filter(Boolean);
+  const [candidateIdx, setCandidateIdx] = useState(0);
+  const [allFailed, setAllFailed] = useState(candidates.length === 0);
+
+  const currentSrc = candidates[candidateIdx];
+
+  const handleImgError = () => {
+    if (candidateIdx + 1 < candidates.length) {
+      setCandidateIdx(candidateIdx + 1);
+    } else {
+      setAllFailed(true);
+    }
+  };
+
+  return (
+    <div className={`avatar ${isLead ? 'pmAvatar' : 'teamAvatar'}`}>
+      {!allFailed && currentSrc ? (
+        <img
+          src={currentSrc}
+          alt={name}
+          className={isLead ? 'pmPhotoImg' : 'teamPhotoImg'}
+          onError={handleImgError}
+        />
+      ) : (
+        <UserRound className={`avatarIcon ${isLead ? 'pmIcon' : ''}`} />
+      )}
     </div>
   );
 }
@@ -518,16 +552,30 @@ function Landing() {
             {/* Project Manager — Prominent Card */}
             <Reveal animation="fade-up" delay={150}>
               <div className="pmSection">
-                <div className="pmLabel">PROJECT LEADERSHIP</div>
+                <div className="pmHeader">
+                  <div className="pmLabel">★ PROJECT LEADERSHIP &amp; VISION</div>
+                  <span className="pmExecutiveTag">Founder &amp; Project Lead</span>
+                </div>
                 <article className="teamCard pmCard">
-                  <div className="avatar">
-                    <UserRound className="avatarIcon" />
-                    <span className="avatarEdit" title="Replace with photo">+</span>
-                  </div>
-                  <div className="teamInfo">
-                    <span className="teamRole">{TEAM_MEMBERS.lead.role}</span>
-                    <h3 className="teamName">{TEAM_MEMBERS.lead.name}</h3>
-                    <p className="teamBio">{TEAM_MEMBERS.lead.bio}</p>
+                  <TeamAvatar src={TEAM_MEMBERS.lead.image} name={TEAM_MEMBERS.lead.name} isLead />
+                  <div className="teamInfo pmTeamInfo">
+                    <span className="teamRole pmRole">{TEAM_MEMBERS.lead.role}</span>
+                    <h3 className="teamName pmName">{TEAM_MEMBERS.lead.name}</h3>
+                    <p className="teamBio pmBio">{TEAM_MEMBERS.lead.bio}</p>
+                    <div className="pmHighlights">
+                      <div className="pmHighlightItem">
+                        <ShieldCheck size={16} />
+                        <span>Architecture Système &amp; Sécurité</span>
+                      </div>
+                      <div className="pmHighlightItem">
+                        <Radio size={16} />
+                        <span>Stratégie Wearable &amp; IoT</span>
+                      </div>
+                      <div className="pmHighlightItem">
+                        <HeartHandshake size={16} />
+                        <span>Protection Communautaire</span>
+                      </div>
+                    </div>
                   </div>
                 </article>
               </div>
@@ -539,10 +587,7 @@ function Landing() {
                 {TEAM_MEMBERS.core.map((m, i) => (
                   <Reveal key={i} animation={i % 2 === 0 ? 'fade-right' : 'fade-left'} delay={250 + i * 150}>
                     <article className="teamCard">
-                      <div className="avatar">
-                        <UserRound className="avatarIcon" />
-                        <span className="avatarEdit" title="Replace with photo">+</span>
-                      </div>
+                      <TeamAvatar src={m.image} name={m.name} />
                       <span className="teamRole">{m.role}</span>
                       <h3 className="teamName">{m.name}</h3>
                       <p className="teamBio">{m.bio}</p>
@@ -580,11 +625,40 @@ function Landing() {
 
 // ─── Waiting List Page ─────────────────────────────────────────────────────
 function WaitingList() {
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phoneNumber: '',
+    whatsappNumber: '',
+    interestedAs: '',
+  });
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
   const [done, setDone] = useState(false);
-  const submit = e => {
+
+  const submit = async e => {
     e.preventDefault();
-    setDone(true);
+    if (submitting) return;
+    setSubmitting(true);
+    setErrorMsg('');
+    try {
+      await submitToWaitlist(formData);
+      setFormData({
+        fullName: '',
+        email: '',
+        phoneNumber: '',
+        whatsappNumber: '',
+        interestedAs: '',
+      });
+      setDone(true);
+    } catch (err) {
+      console.error('Waitlist submission error:', err);
+      setErrorMsg(err.message || 'Unable to submit your registration. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
+
   return (
     <>
       <ScrollProgress />
@@ -627,34 +701,84 @@ function WaitingList() {
               <p>Join the RAYDAR waiting list — early access to the next generation of child safety technology.</p>
               <label>
                 Full Name
-                <input id="field-name" required placeholder="Your full name" />
+                <input
+                  id="field-name"
+                  required
+                  placeholder="Your full name"
+                  value={formData.fullName}
+                  onChange={e => setFormData({ ...formData, fullName: e.target.value })}
+                />
               </label>
               <label>
                 Email Address
-                <input id="field-email" type="email" required placeholder="name@example.com" />
+                <input
+                  id="field-email"
+                  type="email"
+                  required
+                  placeholder="name@example.com"
+                  value={formData.email}
+                  onChange={e => setFormData({ ...formData, email: e.target.value })}
+                />
               </label>
               <label>
                 Phone Number
-                <input id="field-phone" type="tel" required placeholder="+237 ... or international phone" />
+                <input
+                  id="field-phone"
+                  type="tel"
+                  required
+                  placeholder="+237 ... or international phone"
+                  value={formData.phoneNumber}
+                  onChange={e => setFormData({ ...formData, phoneNumber: e.target.value })}
+                />
               </label>
               <label>
                 WhatsApp Phone Number
-                <input id="field-whatsapp" type="tel" required placeholder="+237 ... WhatsApp number" />
+                <input
+                  id="field-whatsapp"
+                  type="tel"
+                  required
+                  placeholder="+237 ... WhatsApp number"
+                  value={formData.whatsappNumber}
+                  onChange={e => setFormData({ ...formData, whatsappNumber: e.target.value })}
+                />
               </label>
               <label>
                 I'm interested as
-                <select id="field-role" required defaultValue="">
+                <select
+                  id="field-role"
+                  required
+                  value={formData.interestedAs}
+                  onChange={e => setFormData({ ...formData, interestedAs: e.target.value })}
+                >
                   <option value="" disabled>Select your role</option>
-                  <option value="Parent / Guardian">Parent / Guardian</option>
-                  <option value="School">School / Educational Institution</option>
-                  <option value="Organization">Organization / NGO</option>
-                  <option value="Community Member">Community Member</option>
-                  <option value="Investor / Partner">Investor / Partner</option>
-                  <option value="Other">Other</option>
+                  <option value="parent_guardian">Parent / Guardian</option>
+                  <option value="school">School</option>
+                  <option value="organization">Organization / NGO</option>
+                  <option value="partner">Partner</option>
+                  <option value="investor">Investor</option>
+                  <option value="other">Other</option>
                 </select>
               </label>
-              <button id="submit-waitlist-btn" className="primary full">
-                Secure My Spot <ArrowRight />
+              {errorMsg && (
+                <div
+                  id="waitlist-error-msg"
+                  style={{
+                    color: 'var(--red)',
+                    backgroundColor: 'var(--redSoft)',
+                    border: '1px solid rgba(232, 63, 72, 0.25)',
+                    borderRadius: '10px',
+                    padding: '10px 14px',
+                    fontSize: '13px',
+                    fontWeight: 600,
+                    textAlign: 'center',
+                    lineHeight: 1.4,
+                  }}
+                >
+                  {errorMsg}
+                </div>
+              )}
+              <button id="submit-waitlist-btn" className="primary full" disabled={submitting}>
+                {submitting ? 'Securing Spot...' : <>Secure My Spot <ArrowRight /></>}
               </button>
               <small><Clock />Early access only. No spam. Your data stays private and secure.</small>
             </form>

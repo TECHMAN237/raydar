@@ -465,7 +465,16 @@ h1 em, h2 em {
 
 .center p {
   margin: auto;
+  color: #2b2735;
+}
+
+.solution .center p {
   color: #e8e4f4;
+}
+
+.recognition .center p {
+  color: #17141f;
+  font-weight: 500;
 }
 
 .solution h2 em {
@@ -756,6 +765,8 @@ h1 em, h2 em {
   justify-content: center;
   overflow: hidden;
   border-radius: 27px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .wearable img {
@@ -763,6 +774,7 @@ h1 em, h2 em {
   height: 100%;
   object-fit: contain;
   padding: 20px;
+  max-height: 100%;
 }
 
 .v2Points {
@@ -997,10 +1009,45 @@ h1 em, h2 em {
 .pmSection {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
 }
 
-.pmLabel, .coreTeamLabel {
+.pmHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  gap: 10px;
+}
+
+.pmLabel {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  color: var(--p);
+  text-transform: uppercase;
+}
+
+.pmExecutiveTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(108, 76, 241, 0.08);
+  color: var(--p);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(108, 76, 241, 0.2);
+}
+
+.coreTeamLabel {
   font-size: 11px;
   font-weight: 800;
   letter-spacing: .15em;
@@ -1023,13 +1070,34 @@ h1 em, h2 em {
   box-shadow: 0 20px 40px rgba(108, 76, 241, 0.08);
 }
 
+/* Grand Executive Leadership Card for Steeve Zali (Fitted Vertical Layout) */
 .pmCard {
-  border: 1.5px solid var(--p);
-  background: linear-gradient(135deg, var(--white), #f9f8ff);
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 30px;
+  border: 2px solid rgba(108, 76, 241, 0.35);
+  background: linear-gradient(180deg, #ffffff 0%, #faf8ff 60%, #fff6f7 100%);
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
+  padding: 16px 16px 22px 16px;
+  border-radius: 26px;
+  box-shadow: 0 22px 55px rgba(108, 76, 241, 0.12), 0 6px 18px rgba(21, 19, 29, 0.04);
+  position: relative;
+  overflow: hidden;
+  max-width: 360px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.pmCard::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(108, 76, 241, 0.1), transparent 70%);
+  pointer-events: none;
 }
 
 .avatar {
@@ -1041,34 +1109,65 @@ h1 em, h2 em {
   color: var(--p);
   display: grid;
   place-items: center;
+  overflow: hidden;
+  border: 1.5px solid var(--line);
+  flex-shrink: 0;
 }
 
-.pmCard .avatar {
-  width: 96px;
-  height: 96px;
+/* Large Executive Photo Frame for Steeve Zali — Fitted to Card Width */
+.avatar.pmAvatar {
+  width: 100%;
+  max-width: 326px;
+  height: 410px;
+  min-width: unset;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #f2edff 0%, #ffffff 50%, #ffecee 100%);
+  border: 2.5px solid rgba(108, 76, 241, 0.35);
+  box-shadow: 0 16px 40px rgba(108, 76, 241, 0.16), 0 4px 12px rgba(232, 63, 72, 0.08);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px auto;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.avatar.pmAvatar:hover {
+  transform: translateY(-3px) scale(1.01);
+  border-color: var(--p);
+  box-shadow: 0 22px 50px rgba(108, 76, 241, 0.24), 0 6px 18px rgba(232, 63, 72, 0.12);
+}
+
+.pmPhotoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  border-radius: 17px;
+  display: block;
+}
+
+.teamPhotoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  border-radius: 18px;
+  display: block;
+}
+
+.pmIcon {
+  width: 72px !important;
+  height: 72px !important;
+  color: var(--p);
+  stroke-width: 1.6;
+  filter: drop-shadow(0 4px 10px rgba(108, 76, 241, 0.25));
 }
 
 .avatarIcon {
-  width: 40%;
-  height: 40%;
-}
-
-.avatarEdit {
-  position: absolute;
-  bottom: -5px;
-  right: -5px;
-  background: var(--p);
-  color: white;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  font-size: 14px;
-  font-weight: bold;
-  display: grid;
-  place-items: center;
-  border: 2px solid var(--white);
-  box-shadow: 0 2px 8px rgba(108, 76, 241, 0.3);
-  transition: all 0.2s;
+  width: 44%;
+  height: 44%;
 }
 
 .teamCard:hover .avatarEdit {
@@ -1084,19 +1183,84 @@ h1 em, h2 em {
   display: block;
 }
 
+.pmRole {
+  font-size: 10.5px;
+  letter-spacing: .12em;
+  font-weight: 800;
+  color: var(--red);
+  display: inline-block;
+  margin-bottom: 2px;
+}
+
 .teamName {
   font-size: 26px;
   margin: 6px 0 10px 0;
 }
 
 .pmCard .teamName {
-  font-size: 32px;
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 2px 0 8px 0;
+  font-weight: 800;
 }
 
 .teamBio {
   color: var(--muted);
   line-height: 1.6;
   font-size: 14px;
+}
+
+.pmTeamInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.pmCard .teamBio {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 310px;
+  margin: 0 auto 16px auto;
+  text-align: center;
+}
+
+.pmHighlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  justify-content: center;
+  width: 100%;
+}
+
+.pmHighlightItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: white;
+  border: 1px solid var(--line);
+  padding: 6px 11px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink);
+  box-shadow: 0 2px 5px rgba(21, 19, 29, 0.03);
+  transition: border-color 0.25s, transform 0.25s;
+}
+
+.pmHighlightItem svg {
+  color: var(--p);
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+}
+
+.pmHighlightItem:hover {
+  border-color: var(--p);
+  transform: translateY(-2px);
 }
 
 .coreTeamSection {
@@ -1534,7 +1698,7 @@ footer b {
   }
   
   /* Layout adjustments */
-  .hero, .two, .cards, .ecos, .recognitionGrid, .teamGrid {
+  .hero, .two, .v2 .two, .cards, .ecos, .recognitionGrid, .teamGrid {
     grid-template-columns: 1fr;
     gap: 35px;
   }
@@ -1553,13 +1717,42 @@ footer b {
     bottom: 12px;
   }
   
-  .section, .solution, .v2 {
+  .section, .solution {
     padding-top: 70px;
     padding-bottom: 70px;
   }
+
+  .v2 {
+    padding: 60px 20px;
+  }
+
+  .v2 .two {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
   
-  .tall, .wearable {
-    height: 400px;
+  .tall {
+    height: 320px;
+    width: 100%;
+  }
+
+  .wearable {
+    height: auto;
+    min-height: unset;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    max-width: 360px;
+    margin: 10px auto 0 auto;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 28px rgba(108, 76, 241, 0.14);
+  }
+
+  .wearable img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 16px;
   }
   
   /* Wait CTA mobile layout */
@@ -1582,15 +1775,33 @@ footer b {
   }
   
   /* Team PM Card mobile layout */
-  .pmCard {
-    grid-template-columns: 1fr;
+  .pmHeader {
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
     text-align: center;
-    gap: 20px;
-    padding: 30px 20px;
+  }
+
+  .pmCard {
+    text-align: center;
+    padding: 14px 14px 20px 14px;
+    max-width: 320px;
   }
   
-  .pmCard .avatar {
-    margin: 0 auto;
+  .avatar.pmAvatar {
+    width: 100%;
+    max-width: 290px;
+    height: 370px;
+    min-width: unset;
+    margin: 0 auto 14px auto;
+  }
+
+  .pmCard .teamBio {
+    margin: 0 auto 14px auto;
+  }
+
+  .pmHighlights {
+    justify-content: center;
   }
   
   /* Waiting list page mobile layout */
