@@ -41,8 +41,8 @@ const TEAM_MEMBERS = {
     },
     {
       role:  'PARTNERSHIPS LEAD',
-      name:  'STEVE FRANCK',
-      image: ['/assets/STEVE FRANCK.jpeg', '/assets/STEVE FRANCK.jpg', '/assets/STEVE FRANCK.png'],
+      name:  'NANGUEP STEVE',
+      image: ['/assets/Nanguep Steve.jpeg', '/assets/Nanguep%20Steve.jpeg'],
       bio:   'Building critical bridges with African schools, local authorities, and community child-protection networks.',
     },
     {
