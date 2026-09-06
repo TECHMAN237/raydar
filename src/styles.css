@@ -1854,3 +1854,393 @@ footer b {
     transition: none !important;
   }
 }
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   LANGUAGE SELECTION SCREEN & FLOATING SWITCHER (BILINGUAL SYSTEM)
+   ═════════════════════════════════════════════════════════════════════════════ */
+
+/* ── Fullscreen Language Gate Overlay ── */
+.languageGate {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: gateFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes gateFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ── Blurred Contextual Background ── */
+.gateBgWrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.gateBgImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  filter: blur(16px) brightness(0.88) contrast(1.08) saturate(1.15);
+  transform: scale(1.12); /* Prevents blur border edges from bleeding */
+  transform-origin: center;
+}
+
+.gateOverlay {
+  position: absolute;
+  inset: 0;
+  /* Cinematic subtle black overlay (approx 36% opacity) preserving image context */
+  background: rgba(14, 11, 23, 0.38);
+  backdrop-filter: blur(4px);
+}
+
+.gateGlow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 35%, rgba(108, 76, 241, 0.28) 0%, rgba(14, 11, 23, 0.45) 75%);
+  pointer-events: none;
+}
+
+/* ── Centered Language Card ── */
+.gateCardWrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 520px;
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+  max-height: 96vh;
+  overflow-y: auto;
+}
+
+.gateCard {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow:
+    0 24px 60px rgba(10, 6, 26, 0.36),
+    0 2px 10px rgba(108, 76, 241, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  padding: 40px 36px;
+  text-align: center;
+  animation: gateCardSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes gateCardSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.gateHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.gateEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--soft);
+  color: var(--p);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.gateEyebrow .liveDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 8px rgba(232, 63, 72, 0.6);
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+.gateBrand {
+  font: 800 32px Manrope, sans-serif;
+  letter-spacing: -0.06em;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.gateBrand span {
+  color: var(--red);
+}
+
+.gateTitle {
+  font: 800 28px/1.22 Manrope, sans-serif;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+  margin: 0 0 10px 0;
+}
+
+.gateSubtitle {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0 0 28px 0;
+  font-weight: 500;
+}
+
+/* ── Language Choice Buttons ── */
+.gateButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.gateBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-radius: 16px;
+  border: 1.5px solid var(--line);
+  background: #ffffff;
+  color: var(--ink);
+  text-align: left;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(21, 19, 29, 0.04);
+  cursor: pointer;
+  position: relative;
+  min-height: 64px;
+}
+
+.gateBtnLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.gateFlag {
+  font-size: 28px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
+}
+
+.gateBtnText {
+  display: flex;
+  flex-direction: column;
+}
+
+.gateBtnMain {
+  font: 700 16px Manrope, sans-serif;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.gateBtnSub {
+  font-size: 12px;
+  color: #797284;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.gateBtnArrow {
+  color: #a49cb2;
+  transition: transform 0.25s, color 0.25s;
+  flex-shrink: 0;
+}
+
+/* Hover / Active states */
+.gateBtn:hover {
+  transform: translateY(-2px);
+  border-color: var(--p);
+  box-shadow: 0 10px 26px rgba(108, 76, 241, 0.16);
+  background: #faf8ff;
+}
+
+.gateBtn:hover .gateBtnMain {
+  color: var(--p);
+}
+
+.gateBtn:hover .gateBtnArrow {
+  color: var(--p);
+  transform: translateX(4px);
+}
+
+.gateBtn:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.gateBtn:focus-visible {
+  outline: 3px solid var(--p2);
+  outline-offset: 2px;
+}
+
+/* ── Card Footer Reassurance ── */
+.gateFooter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(226, 219, 238, 0.7);
+}
+
+.gateMission {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--p);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.gateHint {
+  font-size: 12px;
+  color: #8b8396;
+  line-height: 1.4;
+}
+
+/* ── Floating Language Switcher ── */
+.floatingLangWrapper {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 95;
+  pointer-events: auto;
+}
+
+.floatingLangBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: var(--ink);
+  border: 1.5px solid rgba(226, 219, 238, 0.9);
+  padding: 9px 16px;
+  border-radius: 999px;
+  font: 700 13px Manrope, sans-serif;
+  letter-spacing: 0.02em;
+  box-shadow:
+    0 6px 22px rgba(21, 19, 29, 0.12),
+    0 1px 4px rgba(108, 76, 241, 0.08);
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.floatingLangBtn .langGlobe {
+  color: var(--p);
+  display: flex;
+  align-items: center;
+}
+
+.floatingLangBtn .langTarget {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.floatingLangBtn .langFlag {
+  font-size: 15px;
+  line-height: 1;
+}
+
+.floatingLangBtn .langCode {
+  color: var(--ink);
+  font-weight: 800;
+  transition: color 0.2s;
+}
+
+.floatingLangBtn:hover {
+  transform: translateY(-2px);
+  border-color: var(--p);
+  background: #ffffff;
+  box-shadow:
+    0 12px 28px rgba(108, 76, 241, 0.22),
+    0 2px 8px rgba(232, 63, 72, 0.1);
+}
+
+.floatingLangBtn:hover .langCode {
+  color: var(--p);
+}
+
+.floatingLangBtn:active {
+  transform: translateY(0) scale(0.96);
+}
+
+.floatingLangBtn:focus-visible {
+  outline: 3px solid var(--p2);
+  outline-offset: 2px;
+}
+
+/* ── Mobile Adaptations ── */
+@media (max-width: 640px) {
+  .gateCardWrapper {
+    padding: 16px;
+  }
+  .gateCard {
+    padding: 30px 22px;
+    border-radius: 22px;
+  }
+  .gateBrand {
+    font-size: 26px;
+  }
+  .gateTitle {
+    font-size: 23px;
+  }
+  .gateSubtitle {
+    font-size: 14px;
+    margin-bottom: 22px;
+  }
+  .gateBtn {
+    padding: 14px 16px;
+    min-height: 58px;
+  }
+  .gateFlag {
+    font-size: 24px;
+  }
+  .gateBtnMain {
+    font-size: 15px;
+  }
+  .gateBtnSub {
+    font-size: 11px;
+  }
+  .floatingLangWrapper {
+    bottom: 18px;
+    right: 16px;
+  }
+  .floatingLangBtn {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+}
+
