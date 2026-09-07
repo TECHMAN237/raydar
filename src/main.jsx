@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import {
   ArrowRight, ShieldCheck, MapPin, BellRing, Radio,
   Users, School, HeartHandshake, Check, Menu, X,
-  UserRound, Clock, ArrowLeft, Cpu
+  UserRound, Clock, ArrowLeft, Cpu, ExternalLink
 } from 'lucide-react';
 import './styles.css';
 import { submitToWaitlist } from './supabase.js';
@@ -19,6 +19,7 @@ import { LanguageSwitcher } from './components/LanguageSwitcher.jsx';
 
 // ─── Centralized Image Configuration ───────────────────────────────────────
 const IMAGE_ASSETS = {
+  logo:             '/assets/raydar.png',
   heroImage:        '/assets/images/hero-child-safety-sos.jpg',
   problemImage:     '/assets/images/problem-community.png',
   wearableImage:    '/assets/images/raydar-wearable.png',
@@ -211,8 +212,8 @@ function Nav() {
 
   return (
     <nav className={scrolled ? 'scrolled' : ''}>
-      <button className="brand" onClick={() => scroll('top')}>
-        RAYDAR<span>.</span>
+      <button className="brand" onClick={() => scroll('top')} aria-label="RAYDAR">
+        <img src={IMAGE_ASSETS.logo} alt="RAYDAR" className="brandLogo" />
       </button>
       <div className={`links ${m ? 'open' : ''}`}>
         <button onClick={() => scroll('problem')}>{t.nav.problem}</button>
@@ -271,9 +272,15 @@ function Landing() {
               >
                 {t.hero.joinBtn} <ArrowRight size={16} />
               </button>
-              <button className="textBtn" onClick={() => scrollTo('solution')}>
-                {t.hero.discoverBtn}
-              </button>
+              <a
+                id="hero-discover-btn"
+                href="https://presentation-project-eta.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="textBtn"
+              >
+                {t.hero.discoverBtn} <ExternalLink size={16} />
+              </a>
             </div>
             <div className="proof fade-up-5">
               <span><ShieldCheck size={16} />{t.hero.proofProtection}</span>
@@ -634,7 +641,10 @@ function Landing() {
         <Reveal animation="scale-in">
           <section className="waitCta">
             <div>
-              <span className="eyebrow">{t.waitCta.eyebrow}</span>
+              <div className="waitCtaHeader">
+                <img src={IMAGE_ASSETS.logo} alt="RAYDAR" className="waitCtaLogo" />
+                <span className="eyebrow">{t.waitCta.eyebrow}</span>
+              </div>
               <h2 style={{ color: '#ffffff' }}>{t.waitCta.heading}</h2>
               <p>{t.waitCta.subheading}</p>
             </div>
@@ -650,7 +660,9 @@ function Landing() {
       </main>
 
       <footer>
-        <b>{t.footer.brand}<span>.</span></b>
+        <div className="footerBrand">
+          <img src={IMAGE_ASSETS.logo} alt="RAYDAR" className="footerLogo" />
+        </div>
         <span>{t.footer.tagline}</span>
         <span>{t.footer.credit}</span>
       </footer>
@@ -841,7 +853,9 @@ function WaitingList() {
       </main>
 
       <footer>
-        <b>{t.footer.brand}<span>.</span></b>
+        <div className="footerBrand">
+          <img src={IMAGE_ASSETS.logo} alt="RAYDAR" className="footerLogo" />
+        </div>
         <span>{t.footer.tagline}</span>
         <button className="back" onClick={() => go('/')}>
           {t.footer.backBtn}

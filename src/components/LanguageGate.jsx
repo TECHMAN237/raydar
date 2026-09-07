@@ -22,6 +22,9 @@ export function LanguageGate({ onSelectLanguage, bgImage = '/assets/images/hero-
         <div className="gateCard">
           {/* Brand & Eyebrow */}
           <div className="gateHeader">
+            <div className="gateLogoBadge">
+              <img src="/assets/raydar.png" alt="RAYDAR Logo" className="gateLogoImg" />
+            </div>
             <div className="gateEyebrow">
               <span className="liveDot" />
               <span>SMART CHILD SAFETY ECOSYSTEM</span>

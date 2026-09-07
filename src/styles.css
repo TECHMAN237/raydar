@@ -76,12 +76,25 @@ nav.scrolled {
 .brand {
   border: 0;
   background: none;
-  font: 800 25px Manrope;
-  letter-spacing: -.06em;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
 }
 
-.brand span, footer span {
-  color: var(--red);
+.brandLogo {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
+  filter: drop-shadow(0 2px 8px rgba(108, 76, 241, 0.18));
+}
+
+.brand:hover .brandLogo {
+  transform: scale(1.06);
+  filter: drop-shadow(0 4px 14px rgba(108, 76, 241, 0.28));
 }
 
 .links {
@@ -197,13 +210,24 @@ h1 em, h2 em {
   font-weight: 700;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   transition: all 0.2s;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 15px;
 }
 
 .textBtn:hover {
   color: var(--p);
   transform: translateX(4px);
+}
+
+.textBtn svg {
+  transition: transform 0.2s ease;
+}
+
+.textBtn:hover svg {
+  transform: translate(2px, -2px);
 }
 
 .outline {
@@ -1303,6 +1327,24 @@ h1 em, h2 em {
   filter: blur(15px);
 }
 
+.waitCtaHeader {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.waitCtaLogo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 4px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  flex-shrink: 0;
+}
+
 .waitCta h2 {
   font-size: 42px;
   margin: 8px 0;
@@ -1328,6 +1370,25 @@ footer {
   font-size: 12px;
   border-top: 1px solid var(--line);
   align-items: center;
+}
+
+.footerBrand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footerLogo {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.1));
+  transition: transform 0.25s ease;
+}
+
+.footerLogo:hover {
+  transform: scale(1.06);
 }
 
 footer b {
@@ -1959,6 +2020,34 @@ footer b {
   align-items: center;
   gap: 12px;
   margin-bottom: 20px;
+}
+
+.gateLogoBadge {
+  width: 76px;
+  height: 76px;
+  border-radius: 22px;
+  background: #ffffff;
+  padding: 10px;
+  box-shadow:
+    0 12px 32px rgba(108, 76, 241, 0.18),
+    0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1.5px solid rgba(226, 219, 238, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 6px auto;
+  transition: transform 0.3s ease;
+}
+
+.gateLogoBadge:hover {
+  transform: scale(1.04);
+}
+
+.gateLogoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 .gateEyebrow {
